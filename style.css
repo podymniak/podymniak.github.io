@@ -1,0 +1,66 @@
+body {
+    background-color: #222;
+    color: white;
+    font-family: sans-serif;
+    margin-left: 20%;
+    margin-right: 20%;
+    /*padding: 0;*/
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #111;
+}
+
+.logo img {
+    width: 200px;
+}
+
+nav {
+    display: flex;
+    /*gap: 0.5rem;*/
+    justify-content: flex-end;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    margin-right: 2rem;
+    font-size: 0.8rem;
+    /*padding: 0.5rem 2rem;*/
+}
+
+main {
+    padding: 20% 0;  /* Left and right margin for other pages */
+}
+
+.meet-the-team {
+    text-align: center;
+}
+
+.meet-the-team h2 {
+    margin-bottom: 2rem;
+}
+
+.team-members {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.member {
+    text-align: center;
+}
+
+.member img {
+    width: 200px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
