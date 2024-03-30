@@ -70,6 +70,13 @@ main {
     width: 200px;
     border-radius: 50%;
     margin-bottom: 1rem;
+    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.member img:hover {
+    transform: scale(1.05);
+    /* filter: hue-rotate(180deg); */
 }
 
 .get-started {
@@ -88,6 +95,17 @@ main {
     text-decoration: none;
 }
 
+.homepage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0 20%;
+    font-size: 20px
+}
+
+
+
 @media screen and (max-width: 1700px) {
     body{
         margin-left: 10%;
@@ -104,5 +122,13 @@ main {
     
     .pupicon {
         display: block;
+    }
+
+    .team-members {
+        display: block;
+    }
+
+    .homepage {
+        padding: 0 10%;
     }
 }
