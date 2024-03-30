@@ -7,13 +7,6 @@ body {
     margin-right: 20%;
 }
 
-@media screen and (max-width: 1700px) {
-    body{
-        margin-left: 10%;
-        margin-right: 10%;
-    }
-}
-
 header {
     display: flex;
     justify-content: space-between;
@@ -41,6 +34,14 @@ nav a {
     text-decoration: none;
     color: white;
     font-size: 0.8rem;
+}
+
+#myDropdown {
+    display: none;
+}
+
+.pupicon {
+    display: none;
 }
 
 main {
@@ -85,4 +86,23 @@ main {
     border: none;
     border-radius: 5px;
     text-decoration: none;
+}
+
+@media screen and (max-width: 1700px) {
+    body{
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    nav {
+        width: 5em;
+    }
+
+    .clickpup {
+        display: none;
+    }
+    
+    .pupicon {
+        display: block;
+    }
 }
