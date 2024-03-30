@@ -1,10 +1,17 @@
 body {
+    margin: 0;
     background-color: #222;
     color: white;
     font-family: sans-serif;
     margin-left: 20%;
     margin-right: 20%;
-    /*padding: 0;*/
+}
+
+@media screen and (max-width: 1700px) {
+    body{
+        margin-left: 10%;
+        margin-right: 10%;
+    }
 }
 
 header {
@@ -25,20 +32,19 @@ header {
 
 nav {
     display: flex;
-    /*gap: 0.5rem;*/
-    justify-content: flex-end;
+    justify-content: space-around;
+    margin-right: 2rem;
+    width: 20em;
 }
 
 nav a {
     text-decoration: none;
     color: white;
-    margin-right: 2rem;
     font-size: 0.8rem;
-    /*padding: 0.5rem 2rem;*/
 }
 
 main {
-    padding: 20% 0;  /* Left and right margin for other pages */
+    padding: 5em 0;
 }
 
 .meet-the-team {
