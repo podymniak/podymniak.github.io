@@ -139,7 +139,7 @@ main {
     }
 
     .homepage {
-        padding: 0 10%;
-        margin-top: 3rem;
+        padding: 0;
+        margin-top: 20%;
     }
 }
