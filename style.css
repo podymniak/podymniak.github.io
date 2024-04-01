@@ -1,12 +1,4 @@
-body {
-    margin: 0;
-    background-color: #222;
-    color: white;
-    font-family: sans-serif;
-    margin-left: 20%;
-    margin-right: 20%;
-}
-
+/* HEADER BAR */
 header {
     display: flex;
     justify-content: space-between;
@@ -19,7 +11,7 @@ header {
     background-color: #111;
 }
 
-.logo img {
+.teaBreakLogo img {
     width: 150px;
 }
 
@@ -36,27 +28,46 @@ nav a {
     font-size: 0.8rem;
 }
 
-#myDropdown {
+#navDropdown {
     display: none;
 }
 
-.pupicon {
+.navDropdownIcon {
     display: none;
+}
+
+/* BODY */
+body {
+    background-color: #222;
+    color: white;
+    font-family: sans-serif;
+    margin: 0 20%;
 }
 
 main {
     padding: 5em 0;
+    font-size: 20px;
 }
 
-.meet-the-team {
+/* HOMEPAGE */
+.homepage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0 20%;
+    font-size: 20px;
+}
+
+.meetTheTeam {
     text-align: center;
 }
 
-.meet-the-team h2 {
+.meetTheTeam h2 {
     margin-bottom: 2rem;
 }
 
-.team-members {
+.teamMembers {
     display: flex;
     justify-content: center;
     gap: 2rem;
@@ -75,17 +86,19 @@ main {
 }
 
 .member img:hover {
-    transform: scale(1.05);
+    transform: scale(1.2);
     /* filter: hue-rotate(180deg); */
 }
 
-.get-started {
+/* CLICKPUP */
+.clickPupDownloadLink {
     text-align: center;
     margin-top: 20px;
     color: white;
 }
 
-.get-started a {
+/* TODO color contrast failed: https://dequeuniversity.com/rules/axe/4.8/color-contrast*/
+.clickPupDownloadLink a {
     display: inline-block;
     padding: 10px 20px;
     color: #fff;
@@ -95,40 +108,38 @@ main {
     text-decoration: none;
 }
 
-.homepage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 0 20%;
-    font-size: 20px
-}
 
 
-
-@media screen and (max-width: 1700px) {
+/* FOR PHONE RESOLUTION */
+@media screen and (max-width: 600px) {
     body{
         margin-left: 10%;
         margin-right: 10%;
     }
 
     nav {
-        width: 5em;
+        justify-content: flex-end;
     }
 
-    .clickpup {
-        display: none;
-    }
-    
-    .pupicon {
+    nav a {
         display: block;
     }
 
-    .team-members {
+    .navShown {
+        display: none;
+    }
+
+    .navDropdownIcon {
+        display: block;
+        /*margin-right: 5rem;*/
+    }
+
+    .teamMembers {
         display: block;
     }
 
     .homepage {
         padding: 0 10%;
+        margin-top: 3rem;
     }
 }
