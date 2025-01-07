@@ -58,6 +58,7 @@ main {
 /* HOMEPAGE */
 .homepage {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -79,11 +80,13 @@ main {
     gap: 2rem;
 }
 
-.member {
+.member,
+.guest {
     text-align: center;
 }
 
-.member img {
+.member img,
+.guest img {
     width: 200px;
     height: 200px;
     border-radius: 50%;
@@ -93,8 +96,13 @@ main {
 }
 
 .member img:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
     /* filter: hue-rotate(180deg); */
+}
+
+.guest img:hover {
+    /*transform: rotate(180deg);*/
+    transform: scaleX(-1);
 }
 
 /* CLICKPUP */
@@ -174,7 +182,7 @@ main {
 
     .homepage {
         padding: 0;
-        margin-top: 20%;
+        margin-top: 0;
     }
 }
 
