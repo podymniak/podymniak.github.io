@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARTA | ABOUT ME</title>
+    <style>
+        body {
+            font-size: 20px;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #222;
+            color: white;
+            font-size: 48px;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 300px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .photo {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .divider {
+            border: none;
+            height: 1px;
+            background-color: #ddd;
+            margin: 25px 0;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center; /* or remove if you want left-aligned */
+            margin-top: 10px;
+        }
+
+        .skills span {
+            background-color: #eee;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 22px;
+            white-space: nowrap;
+        }
+
+        .links {
+            text-align: center;
+            font-size: 32px;
+        }
+
+        .links a {
+            display: inline-block;
+            margin-right: 10px;
+            text-decoration: none;
+            color: #0077b5;
+            font-weight: bold;
+        }
+
+        .links a.github {
+            color: #333;
+        }
+
+        .spacer {
+            margin: 15px 0;
+        }
+
+        .project-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+
+        .project-title {
+            font-weight: bold;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .project-desc {
+            font-size: 22px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .project-link {
+            text-decoration: none;
+            font-weight: bold;
+            color: #0077b5;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    MARTA | ABOUT ME
+</header>
+
+<div class="container">
+
+    <!-- LEFT SECTION -->
+    <div class="section">
+        <div class="links">
+            <a href="https://www.linkedin.com/in/marta-podymniak/" target="_blank">LinkedIn</a>
+            <a href="https://github.com/podymniak" target="_blank" class="github">GitHub</a>
+        </div>
+
+        <div class="spacer">
+            <img src="images/marta.jpg" alt="Marta's photo" class="photo">
+        </div>
+
+        <div class="skills">
+            <span>Google Cloud Platform</span>
+            <span>Python</span>
+            <span>SQL</span>
+            <span>BigQuery</span>
+            <span>Cloud Composer (Airflow)</span>
+<!--            <span>Airflow</span>-->
+            <span>Dataflow</span>
+            <span>Cloud Functions</span>
+            <span>Cloud Logging</span>
+            <span>Pub/Sub</span>
+            <span>REST APIs</span>
+            <span>GitHub</span>
+            <span>Looker Studio (BI)</span>
+            <span>English (proficient)</span>
+            <span>Polish (native)</span>
+        </div>
+
+
+        <div class="spacer" style="font-size: 22px;">
+            <p><strong>Data Engineer</strong> with 5+ years of experience building data-driven solutions in <strong>Google Cloud Platform</strong>, and 7+ years working with <strong>Python</strong> and <strong>SQL</strong>.</p>
+
+            <p>Strong background in analytics, engineering, and economics, focused on transforming business needs into reliable and efficient data systems.</p>
+
+            <p>Experienced in designing data pipelines, optimizing performance, and enabling data accessibility for analytics and product teams.</p>
+
+            <p>Motivated by working in a supportive and diverse team - bonus points if it's international. Excited at every opportunity to collaborate with colleagues across departments and share knowledge.</p>
+        </div>
+
+        <hr class="divider">
+
+        <div class="project-card">
+            <p class="project-title">
+                🛁 Bathroom Design Project
+            </p>
+
+            <p class="project-desc">
+                This is my new hobby:) I wasn’t sure how I wanted my new bathroom to look, so I just learned
+                <strong>3D modeling in Blender</strong> to design it.
+            </p>
+
+            <a href="renders.html" target="_blank" class="project-link">
+                View 360 Render →
+            </a>
+        </div>
+    </div>
+
+    <!-- RIGHT SECTION -->
+    <div class="section">
+        <h2>Projects & Impact</h2>
+
+        <hr class="divider">
+
+        <div class="spacer">
+            <h3>Client & Platform Leadership</h3>
+
+            <p><strong>Data Lead (e-commerce, Poland)</strong></p>
+            <ul>
+                <li>Full ownership of technical work with independent delivery.</li>
+                <li>Ongoing support for Web Analytics, Data Science, and Marketing Analytics teams.</li>
+                <li>Active partner in business and media decision-making.</li>
+<!--                <li>Consistently high client satisfaction; trusted to support external teams and processes.</li>-->
+                <li>Key initiatives:
+                    <ul>
+                        <li>Architected the new <strong>e-commerce data warehouse</strong>.</li>
+<!--                        <li>Optimized multiple business processes - BigQuery, Looker, Cloud Storage, Cloud Composer.</li>-->
+                        <li>Optimized multiple business processes - <strong>BigQuery, Looker, Cloud Storage, Cloud Composer</strong> - with average monthly costs savings of <strong>30-100€</strong>.</li>
+                        <li>Automated <strong>prediction models</strong> and <strong>attribution report</strong>.</li>
+                        <li>Reviewed and redesigned <strong>IAM access policies</strong> following the principle of least privilege.</li>
+                        <li>Ongoing support of client account and <strong>business planning</strong>.</li>
+                        <li>On-site client collaboration, strengthening client relationships.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p><strong>Engineering Lead (non-profit, USA)</strong></p>
+            <ul>
+                <li>Engineering owner of the <strong>marketing data platform</strong> with BigQuery as the main DWH.</li>
+                <li>Maintenance of central <strong>data pipelines</strong> aggregating multiple data sources.</li>
+                <li><strong>Optimization & automation</strong> of DS predictive scripts.</li>
+                <li>Performance optimization for dashboard data aggregation.</li>
+                <li>Full responsibility for <strong>security, monitoring, and platform reliability</strong>.</li>
+            </ul>
+
+            <p><strong>Data Engineering Support (non-profit, USA)</strong></p>
+            <ul>
+                <li>Automation of workflows for Data Science, Media, and BI.</li>
+                <li>Productivity gains (<strong>saving 6h/month</strong>) through process simplification and elimination of manual work.</li>
+            </ul>
+        </div>
+
+        <hr class="divider">
+
+        <div class="spacer">
+            <h3>Tools & Automation</h3>
+            <ul>
+                <li><strong>DV360 Bulk Entity Update Tool</strong> that enabled mass updates during the critical Christmas peak during a platform outage.</li>
+                <li><strong>ClickPup Calendar Add-on</strong> (<a href="clickpup.html">link</a>) enabled time reporting from Google Calendar directly to ClickUp.</li>
+                <li><strong>Room Booking App for the Warsaw office</strong> (<a href="https://github.com/podymniak/nexudus-booking">link</a>) for the full room availability and booking directly from Google Calendar. Functionality surpasses the official booking website.</li>
+                <li>Internal financial reporting workflows.</li>
+            </ul>
+
+            <p>These tools directly reduced manual work, increased operational resilience, and improved productivity across teams.</p>
+        </div>
+
+        <hr class="divider">
+
+        <div class="spacer">
+            <h3>Leadership, Collaboration & Culture</h3>
+            <ul>
+                <li>Highly <strong>proactive</strong> in identifying problems and proposing solutions.</li>
+                <li>Strongly <strong>team-oriented</strong> - supports teammates during overloads and improves team processes.</li>
+                <li>Supports team growth by enabling teammates to present in internal knowledge sharing sessions.</li>
+            </ul>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
