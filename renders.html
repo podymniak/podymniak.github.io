@@ -1,28 +1,134 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>360 Viewer</title>
+    <title>360 Viewer with Thumbnails</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.min.css" />
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+
+        #viewer {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* Thumbnail bar */
+        #thumbnails {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            background: rgba(0,0,0,0.4);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .thumb {
+            width: 70px;
+            height: 40px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            transition: 0.2s;
+        }
+
+        .thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .thumb.active {
+            border: 2px solid #fff;
+        }
+    </style>
 
     <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/three/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.min.js"></script>
 </head>
-<body style="margin:0">
 
-<div id="viewer" style="width:100vw; height:100vh;"></div>
+<body>
+
+<div id="viewer"></div>
+
+<!-- Thumbnails -->
+<div id="thumbnails"></div>
 
 <script>
+    const panoramas = [
+        {
+            src: 'renders/bath_360.png',
+            thumb: 'renders/bath_361.png'
+        },
+        {
+            src: 'renders/bath_361.png',
+            thumb: 'renders/bath_360.png'
+        },
+        {
+            src: 'renders/bath_362.png',
+            thumb: 'renders/bath_360.png'
+        },
+        // {
+        //     src: 'renders/salon_360.png',
+        //     thumb: 'renders/salon_360.png'
+        // },
+        // {
+        //     src: 'renders/salon_361.png',
+        //     thumb: 'renders/salon_361.png'
+        // },
+    ];
+
+    let current = 0;
+
     const viewer = new PhotoSphereViewer.Viewer({
         container: 'viewer',
-        panorama: 'renders/bath_360.png',
+        panorama: panoramas[current].src,
+        mousemove: true,
+        mousewheel: true,
+        navbar: false
+    });
 
-        // optional tweaks
-        mousemove: true,      // enables click + drag rotation
-        mousewheel: true,     // zoom with scroll
-        navbar: false          // UI controls
+    const thumbnailsContainer = document.getElementById('thumbnails');
+
+    function loadPanorama(index) {
+        current = index;
+        viewer.setPanorama(panoramas[index].src);
+        updateActiveThumb();
+    }
+
+    function updateActiveThumb() {
+        document.querySelectorAll('.thumb').forEach((img, i) => {
+            img.classList.toggle('active', i === current);
+        });
+    }
+
+    // Create thumbnails
+    panoramas.forEach((pano, index) => {
+        const img = document.createElement('img');
+        img.src = pano.thumb;
+        img.className = 'thumb';
+        img.onclick = () => loadPanorama(index);
+        thumbnailsContainer.appendChild(img);
+    });
+
+    updateActiveThumb();
+
+    // Optional: keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+            loadPanorama((current + 1) % panoramas.length);
+        }
+        if (e.key === 'ArrowLeft') {
+            loadPanorama((current - 1 + panoramas.length) % panoramas.length);
+        }
     });
 </script>
 
