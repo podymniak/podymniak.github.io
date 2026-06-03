@@ -36,6 +36,11 @@
             line-height: 1.4;
             border: 1px solid #555;
         }
+
+        /* Forces the mouse to change to the clicking hand when hovering over comment items */
+        .clickable-comment-marker {
+            cursor: pointer !important;
+        }
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/three/build/three.min.js"></script>
@@ -78,7 +83,7 @@
                     size: { width: 70, height: 100 },
                     yaw: 5.52,
                     pitch: -0.06,
-                    // We put the text message in custom data so we can read it on click
+                    className: 'clickable-comment-marker',
                     data: { message: "No reflection..." }
                 },{
                     id: 'bathroom_doors-radiator',
@@ -86,6 +91,7 @@
                     size: { width: 200, height: 300 },
                     yaw: 1.89,
                     pitch: -0.10,
+                    className: 'clickable-comment-marker',
                     data: { message: "It's completely cold." }
                 },{
                     id: 'bathroom_doors-pawlacz',
@@ -93,6 +99,7 @@
                     size: { width: 32, height: 32 },
                     yaw: 4.99,
                     pitch: 0.90,
+                    className: 'clickable-comment-marker',
                     data: { message: "Nothing inside." }
                 },{
                     id: 'bathroom_doors-szafka_wc',
@@ -100,6 +107,7 @@
                     size: { width: 32, height: 32 },
                     yaw: 0.63,
                     pitch: -0.05,
+                    className: 'clickable-comment-marker',
                     data: { message: "Nothing inside." }
                 }
             ]
@@ -120,9 +128,10 @@
                 },{
                     id: 'bathroom_shower-shower',
                     image: handIcon,
-                    size: { width: 16, height: 16 },
+                    size: { width: 32, height: 32 },
                     yaw: 3.92,
                     pitch: -0.72,
+                    className: 'clickable-comment-marker',
                     data: { message: "There's no water." }
                 }
             ]
