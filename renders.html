@@ -2,11 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>♡ My Bathroom ♡</title>
+    <title>♡ My Bathroom Tour ♡</title>
     <link rel="shortcut icon" href="images/teaBreak.png">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/markers-plugin/index.min.css" />
 
     <style>
         body {
@@ -20,77 +20,171 @@
             height: 100vh;
         }
 
-        /* Thumbnail bar */
-        #thumbnails {
+        /* Message Box styling */
+        #coords-log {
             position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            background: rgba(0,0,0,0.4);
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-        .thumb {
-            width: 70px;
-            height: 40px;
-            object-fit: cover;
-            cursor: pointer;
-            border: 2px solid transparent;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 12px;
             border-radius: 5px;
-            transition: 0.2s;
-        }
-
-        .thumb:hover {
-            transform: scale(1.2);
-        }
-
-        .thumb.active {
-            border: 2px solid #fff;
+            font-family: monospace;
+            z-index: 100;
+            pointer-events: none;
+            max-width: 300px;
+            line-height: 1.4;
+            border: 1px solid #555;
         }
     </style>
 
-    <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/three/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/markers-plugin/index.min.js"></script>
 </head>
 
 <body>
 
 <div id="viewer"></div>
-
-<!-- Thumbnails -->
 <div id="thumbnails"></div>
+<div id="coords-log">Click an item to inspect it, or click the floor for coordinates!</div>
 
 <script>
+    const arrowIcon = "https://www.freeiconspng.com/uploads/arrow-icon-clip-art-file-down-arrow-icon-png-balin-icon-arrow-right--32.png";
+    const handIcon = "https://www.freeiconspng.com/uploads/helping-hand-icon-png-11.png1";
+    const questionIcon = "https://www.freeiconspng.com/uploads/question-answer-icon-10.png1";
+    const thoughtIcon = "https://www.freeiconspng.com/uploads/bubble-cloud-thought-icon-2.png1";
+
+    const mainIconSize = 32
+    const minerIconSize = 32
+
     const panoramas = [
         {
+            id: 'bathroom_doors',
             src: 'renders/bath_new_365.png',
-            thumb: 'renders/bath_new_365.png'
+            thumb: 'renders/bath_new_365.png',
+            markers: [
+                {
+                    id: 'bathroom_doors-to-bathroom_shower',
+                    image: arrowIcon,
+                    size: { width: mainIconSize, height: mainIconSize },
+                    yaw: 0.0,
+                    pitch: -0.2,
+                    tooltip: 'Go to the shower',
+                    data: { targetIndex: 1 } // Moving action
+                },{
+                    id: 'bathroom_doors-mirror',
+                    image: thoughtIcon,
+                    size: { width: 70, height: 100 },
+                    yaw: 5.52,
+                    pitch: -0.06,
+                    // We put the text message in custom data so we can read it on click
+                    data: { message: "No reflection..." }
+                },{
+                    id: 'bathroom_doors-radiator',
+                    image: thoughtIcon,
+                    size: { width: 200, height: 300 },
+                    yaw: 1.89,
+                    pitch: -0.10,
+                    data: { message: "It's completely cold." }
+                },{
+                    id: 'bathroom_doors-pawlacz',
+                    image: handIcon,
+                    size: { width: 32, height: 32 },
+                    yaw: 4.99,
+                    pitch: 0.90,
+                    data: { message: "Nothing inside." }
+                },{
+                    id: 'bathroom_doors-szafka_wc',
+                    image: handIcon,
+                    size: { width: 32, height: 32 },
+                    yaw: 0.63,
+                    pitch: -0.05,
+                    data: { message: "Nothing inside." }
+                }
+            ]
         },
         {
+            id: 'bathroom_shower',
             src: 'renders/bath_new_366.png',
-            thumb: 'renders/bath_new_366.png'
+            thumb: 'renders/bath_new_366.png',
+            markers: [
+                {
+                    id: 'bathroom_shower-to-bathroom_doors',
+                    image: arrowIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 0.21,
+                    pitch: -0.35,
+                    tooltip: 'Go to the doors',
+                    data: {targetIndex: 0}, // Moving action
+                },{
+                    id: 'bathroom_shower-shower',
+                    image: handIcon,
+                    size: { width: 16, height: 16 },
+                    yaw: 3.92,
+                    pitch: -0.72,
+                    data: { message: "There's no water." }
+                }
+            ]
         },
     ];
 
     let current = 0;
 
+    // Initialize Viewer
     const viewer = new PhotoSphereViewer.Viewer({
         container: 'viewer',
         panorama: panoramas[current].src,
         mousemove: true,
         mousewheel: true,
-        navbar: false
+        navbar: false,
+        defaultZoomLvl: 0,
+        plugins: [
+            [PhotoSphereViewer.MarkersPlugin, {}]
+        ]
+    });
+
+    const markersPlugin = viewer.getPlugin(PhotoSphereViewer.MarkersPlugin);
+
+    viewer.addEventListener('ready', () => {
+        markersPlugin.setMarkers(panoramas[current].markers);
+    }, { once: true });
+
+    // Handle marker clicks dynamically
+    markersPlugin.addEventListener('select-marker', ({ marker }) => {
+        const logBox = document.getElementById('coords-log');
+
+        if (marker.data) {
+            // Case A: It's a door/walking arrow
+            if (marker.data.targetIndex !== undefined) {
+                loadPanorama(marker.data.targetIndex);
+            }
+            // Case B: It's an object comment marker
+            else if (marker.data.message !== undefined) {
+                logBox.innerHTML = `💬 ${marker.data.message}`;
+            }
+        }
+    });
+
+    // Helper Tool: regular background click yields coordinates
+    viewer.addEventListener('click', ({ data }) => {
+        if (!data.yaw) return;
+        const logBox = document.getElementById('coords-log');
+        logBox.innerHTML = `yaw: ${data.yaw.toFixed(2)}, pitch: ${data.pitch.toFixed(2)}`;
     });
 
     const thumbnailsContainer = document.getElementById('thumbnails');
 
     function loadPanorama(index) {
         current = index;
-        viewer.setPanorama(panoramas[index].src);
+
+        viewer.setPanorama(panoramas[index].src).then(() => {
+            markersPlugin.setMarkers(panoramas[index].markers || []);
+
+            // Reset message text when moving to a new room
+            document.getElementById('coords-log').innerHTML = "Click an item to inspect it, or click the floor for coordinates!";
+        });
+
         updateActiveThumb();
     }
 
@@ -100,7 +194,6 @@
         });
     }
 
-    // Create thumbnails
     panoramas.forEach((pano, index) => {
         const img = document.createElement('img');
         img.src = pano.thumb;
@@ -110,16 +203,6 @@
     });
 
     updateActiveThumb();
-
-    // Optional: keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight') {
-            loadPanorama((current + 1) % panoramas.length);
-        }
-        if (e.key === 'ArrowLeft') {
-            loadPanorama((current - 1 + panoramas.length) % panoramas.length);
-        }
-    });
 </script>
 
 </body>
