@@ -56,12 +56,23 @@
 
 <script>
     const arrowIcon = "https://www.freeiconspng.com/uploads/arrow-icon-clip-art-file-down-arrow-icon-png-balin-icon-arrow-right--32.png";
-    const handIcon = "https://www.freeiconspng.com/uploads/helping-hand-icon-png-11.png1";
+    const handIcon = "https://www.freeiconspng.com/uploads/helping-hand-icon-png-11.png";
     const questionIcon = "https://www.freeiconspng.com/uploads/question-answer-icon-10.png1";
-    const thoughtIcon = "https://www.freeiconspng.com/uploads/bubble-cloud-thought-icon-2.png1";
+    const thoughtIcon = "https://www.freeiconspng.com/uploads/bubble-cloud-thought-icon-2.png";
 
     const mainIconSize = 32
     const minerIconSize = 32
+
+    const panoramaIndex = {
+        bathroom_doors: 0,
+        bathroom_shower: 1,
+        kitchen_window: 2,
+        kitchen_doors: 3,
+        balcony: 4,
+        hall_mid: 5,
+        hall_exit: 6,
+        salon_doors: 7
+    }
 
     const panoramas = [
         {
@@ -76,8 +87,18 @@
                     yaw: 0.0,
                     pitch: -0.2,
                     tooltip: 'Go to the shower',
-                    data: { targetIndex: 1 } // Moving action
+                    data: { targetIndex: panoramaIndex.bathroom_shower } // Moving action
                 },{
+                    id: 'bathroom_doors-to-hall_mid',
+                    image: handIcon,
+                    size: { width: mainIconSize, height: mainIconSize },
+                    yaw: 4.50,
+                    pitch: -1.12,
+                    tooltip: 'Leave',
+                    data: { targetIndex: panoramaIndex.hall_mid } // Moving action
+                },
+
+                {
                     id: 'bathroom_doors-mirror',
                     image: thoughtIcon,
                     size: { width: 70, height: 100 },
@@ -95,7 +116,7 @@
                     data: { message: "It's completely cold." }
                 },{
                     id: 'bathroom_doors-pawlacz',
-                    image: handIcon,
+                    image: thoughtIcon,
                     size: { width: 32, height: 32 },
                     yaw: 4.99,
                     pitch: 0.90,
@@ -103,7 +124,7 @@
                     data: { message: "Nothing inside." }
                 },{
                     id: 'bathroom_doors-szafka_wc',
-                    image: handIcon,
+                    image: thoughtIcon,
                     size: { width: 32, height: 32 },
                     yaw: 0.63,
                     pitch: -0.05,
@@ -124,8 +145,10 @@
                     yaw: 0.21,
                     pitch: -0.35,
                     tooltip: 'Go to the doors',
-                    data: {targetIndex: 0}, // Moving action
-                },{
+                    data: {targetIndex: panoramaIndex.bathroom_doors}, // Moving action
+                },
+
+                {
                     id: 'bathroom_shower-shower',
                     image: handIcon,
                     size: { width: 32, height: 32 },
@@ -136,9 +159,197 @@
                 }
             ]
         },
+        {
+            id: 'kitchen_window',
+            src: 'renders/kitchen_window.png',
+            thumb: 'renders/kitchen_window.png',
+            markers: [
+                {
+                    id: 'kitchen_window-to-kitchen_doors',
+                    image: arrowIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 2.33,
+                    pitch: -0.35,
+                    tooltip: 'Go to the doors',
+                    data: {targetIndex: panoramaIndex.kitchen_doors}, // Moving action
+                }
+            ]
+        },
+        {
+            id: 'kitchen_doors',
+            src: 'renders/kitchen_doors.png',
+            thumb: 'renders/kitchen_doors.png',
+            markers: [
+                {
+                    id: 'kitchen_doors-to-kitchen_window',
+                    image: arrowIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 5.78,
+                    pitch: -0.26,
+                    tooltip: 'Go to the window',
+                    data: {targetIndex: panoramaIndex.kitchen_window}, // Moving action
+                },{
+                    id: 'kitchen_doors-to-hall_mid',
+                    image: arrowIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 1.31,
+                    pitch: -0.26,
+                    tooltip: 'Go to the hall',
+                    data: {targetIndex: panoramaIndex.hall_mid}, // Moving action
+                }
+            ]
+        },
+        {
+            id: 'balcony',
+            src: 'renders/balcony.png',
+            thumb: 'renders/balcony.png',
+            markers: [
+                {
+                    id: 'balcony-to-salon_doors',
+                    image: arrowIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 3.33,
+                    pitch: -0.35,
+                    tooltip: 'Go back',
+                    data: {targetIndex: panoramaIndex.salon_doors}, // Moving action
+                },
+
+                {
+                    id: 'balcony-void',
+                    image: thoughtIcon,
+                    size: { width: 70, height: 100 },
+                    yaw: 0.36,
+                    pitch: 0.1,
+                    className: 'clickable-comment-marker',
+                    data: { message: "I don't see anything. The fog it too thick." }
+                },{
+                    id: 'balcony-down',
+                    image: thoughtIcon,
+                    size: { width: 70, height: 100 },
+                    yaw: 5.5,
+                    pitch: -1.03,
+                    className: 'clickable-comment-marker',
+                    data: { message: "How high am I?" }
+                },{
+                    id: 'balcony-up',
+                    image: thoughtIcon,
+                    size: { width: 70, height: 100 },
+                    yaw: 2.15,
+                    pitch: 1.11,
+                    className: 'clickable-comment-marker',
+                    data: { message: "Last floor." }
+                }
+            ]
+        },
+        {
+            id: 'hall_mid',
+            src: 'renders/hall_mid.png',
+            thumb: 'renders/hall_mid.png',
+            markers: [
+                {
+                    id: 'hall_mid-to-bathroom_doors',
+                    image: handIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 2.11,
+                    pitch: -1.33,
+                    tooltip: 'Go to the bathroom',
+                    data: {targetIndex: panoramaIndex.bathroom_doors}, // Moving action
+                },{
+                    id: 'hall_mid-to-salon_doors',
+                    image: arrowIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 0.36,
+                    pitch: -0.38,
+                    tooltip: 'Go to the main room',
+                    data: {targetIndex: panoramaIndex.salon_doors}, // Moving action
+                },{
+                    id: 'hall_mid-to-kitchen_doors',
+                    image: arrowIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 4.48,
+                    pitch: -0.35,
+                    tooltip: 'Go to the kitchen',
+                    data: {targetIndex: panoramaIndex.kitchen_doors}, // Moving action
+                },{
+                    id: 'hall_mid-to-hall_exit',
+                    image: arrowIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 3.57,
+                    pitch: -0.22,
+                    tooltip: 'Exit',
+                    data: {targetIndex: panoramaIndex.hall_exit}, // Moving action
+                }
+            ]
+        },
+        {
+            id: 'hall_exit',
+            src: 'renders/hall_exit.png',
+            thumb: 'renders/hall_exit.png',
+            markers: [
+                {
+                    id: 'hall_exit-to-bathroom_doors',
+                    image: handIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 0.51,
+                    pitch: -0.32,
+                    tooltip: 'Go to the bathroom',
+                    data: {targetIndex: panoramaIndex.bathroom_doors}, // Moving action
+                },{
+                    id: 'hall_exit-to-salon_doors',
+                    image: arrowIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 0.39,
+                    pitch: -0.21,
+                    tooltip: 'Go to the main room',
+                    data: {targetIndex: panoramaIndex.salon_doors}, // Moving action
+                },{
+                    id: 'hall_exit-to-kitchen_doors',
+                    image: arrowIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 6.14,
+                    pitch: -0.27,
+                    tooltip: 'Go to the kitchen',
+                    data: {targetIndex: panoramaIndex.kitchen_doors}, // Moving action
+                },
+
+                {
+                    id: 'hall_exit-exit_doors',
+                    image: handIcon,
+                    size: { width: 70, height: 100 },
+                    yaw: 2.99,
+                    pitch: -1.05,
+                    className: 'clickable-comment-marker',
+                    data: { message: "It's closed." }
+                }
+            ]
+        },
+        {
+            id: 'salon_doors',
+            src: 'renders/salon_doors.png',
+            thumb: 'renders/salon_doors.png',
+            markers: [
+                {
+                    id: 'salon_doors-to-hall_mid',
+                    image: arrowIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 3.82,
+                    pitch: -0.35,
+                    tooltip: 'Go to the hall',
+                    data: {targetIndex: panoramaIndex.hall_mid}, // Moving action
+                },{
+                    id: 'salon_doors-to-balcony',
+                    image: arrowIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 0.26,
+                    pitch: -0.25,
+                    tooltip: 'Go to the balcony',
+                    data: {targetIndex: panoramaIndex.balcony}, // Moving action
+                }
+            ]
+        },
     ];
 
-    let current = 0;
+    let current = panoramaIndex.balcony;
 
     // Initialize Viewer
     const viewer = new PhotoSphereViewer.Viewer({
