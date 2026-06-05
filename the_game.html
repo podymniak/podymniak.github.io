@@ -101,35 +101,36 @@
                 {
                     id: 'bathroom_doors-mirror',
                     image: thoughtIcon,
-                    size: { width: 70, height: 100 },
+                    size: { width: minerIconSize, height: minerIconSize },
                     yaw: 5.52,
                     pitch: -0.06,
                     className: 'clickable-comment-marker',
-                    data: { message: "No reflection..." }
+                    // data: { message: "No reflection..." }
+                    data: { messages: ["No reflection...", "Am I a ghost?"] }
                 },{
                     id: 'bathroom_doors-radiator',
                     image: thoughtIcon,
-                    size: { width: 200, height: 300 },
+                    size: { width: minerIconSize, height: minerIconSize },
                     yaw: 1.89,
                     pitch: -0.10,
                     className: 'clickable-comment-marker',
-                    data: { message: "It's completely cold." }
+                    data: { message: "It's still cold." }
                 },{
                     id: 'bathroom_doors-pawlacz',
-                    image: thoughtIcon,
-                    size: { width: 32, height: 32 },
+                    image: handIcon,
+                    size: { width: minerIconSize, height: minerIconSize },
                     yaw: 4.99,
                     pitch: 0.90,
                     className: 'clickable-comment-marker',
-                    data: { message: "Nothing inside." }
+                    data: { messages: ["Cleaning supplies.","Nothing interesting inside."] }
                 },{
                     id: 'bathroom_doors-szafka_wc',
-                    image: thoughtIcon,
-                    size: { width: 32, height: 32 },
+                    image: handIcon,
+                    size: { width: minerIconSize, height: minerIconSize },
                     yaw: 0.63,
-                    pitch: -0.05,
+                    pitch: -0.26,
                     className: 'clickable-comment-marker',
-                    data: { message: "Nothing inside." }
+                    data: { messages: ["Toiletries.","Nothing interesting inside."] }
                 }
             ]
         },
@@ -151,11 +152,11 @@
                 {
                     id: 'bathroom_shower-shower',
                     image: handIcon,
-                    size: { width: 32, height: 32 },
+                    size: { width: minerIconSize, height: minerIconSize },
                     yaw: 0.65,
                     pitch: -0.56,
                     className: 'clickable-comment-marker',
-                    data: { message: "There's no water." }
+                    data: { messages: ["There's no water.", "They still haven't finished."] }
                 }
             ]
         },
@@ -196,6 +197,20 @@
                     pitch: -0.26,
                     tooltip: 'Go to the hall',
                     data: {targetIndex: panoramaIndex.hall_mid}, // Moving action
+                },
+
+                {
+                    id: 'kitchen_doors-todo',
+                    image: thoughtIcon,
+                    size: { width: minerIconSize, height: minerIconSize },
+                    yaw: 4.39,
+                    pitch: -0.35,
+                    className: 'clickable-comment-marker',
+                    data: { messages:
+                            [
+                                "A TO-DO list.",
+                                "Not now...",
+                            ] }
                 }
             ]
         },
@@ -218,10 +233,14 @@
                     id: 'balcony-void',
                     image: thoughtIcon,
                     size: { width: 70, height: 100 },
-                    yaw: 0.36,
-                    pitch: 0.1,
+                    yaw: 0.31,
+                    pitch: -0.22,
                     className: 'clickable-comment-marker',
-                    data: { message: "I don't see anything. The fog it too thick." }
+                    data: { messages:
+                            [
+                                "I don't see anything. The fog it too thick.",
+                                "The view is usually so beautiful from here. It always makes me feel better."
+                            ] }
                 },{
                     id: 'balcony-down',
                     image: thoughtIcon,
@@ -229,7 +248,7 @@
                     yaw: 5.5,
                     pitch: -1.03,
                     className: 'clickable-comment-marker',
-                    data: { message: "How high am I?" }
+                    data: { message: "A long way down." }
                 },{
                     id: 'balcony-up',
                     image: thoughtIcon,
@@ -276,7 +295,7 @@
                     size: {width: mainIconSize, height: mainIconSize},
                     yaw: 3.57,
                     pitch: -0.22,
-                    tooltip: 'Exit',
+                    tooltip: 'The front doors',
                     data: {targetIndex: panoramaIndex.hall_exit}, // Moving action
                 }
             ]
@@ -319,7 +338,7 @@
                     yaw: 2.99,
                     pitch: -1.05,
                     className: 'clickable-comment-marker',
-                    data: { message: "It's closed." }
+                    data: { message: "It's locked." }
                 }
             ]
         },
@@ -375,15 +394,32 @@
     markersPlugin.addEventListener('select-marker', ({ marker }) => {
         const logBox = document.getElementById('coords-log');
 
-        if (marker.data) {
-            // Case A: It's a door/walking arrow
-            if (marker.data.targetIndex !== undefined) {
-                loadPanorama(marker.data.targetIndex);
+        if (!marker.data) return;
+
+        // Door / navigation marker
+        if (marker.data.targetIndex !== undefined) {
+            loadPanorama(marker.data.targetIndex);
+            return;
+        }
+
+        // Comment marker with multiple messages
+        if (marker.data.messages) {
+
+            if (marker.data.currentMessage === undefined) {
+                marker.data.currentMessage = 0;
             }
-            // Case B: It's an object comment marker
-            else if (marker.data.message !== undefined) {
-                logBox.innerHTML = `💬 ${marker.data.message}`;
-            }
+
+            const index = marker.data.currentMessage;
+
+            logBox.innerHTML = `💬 ${marker.data.messages[index]}`;
+
+            marker.data.currentMessage =
+                (index + 1) % marker.data.messages.length;
+        }
+
+        // Backward compatibility with old markers
+        else if (marker.data.message) {
+            logBox.innerHTML = `💬 ${marker.data.message}`;
         }
     });
 
