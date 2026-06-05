@@ -77,8 +77,8 @@
     const panoramas = [
         {
             id: 'bathroom_doors',
-            src: 'renders/bath_new_365.png',
-            thumb: 'renders/bath_new_365.png',
+            src: 'renders/bathroom_doors.png',
+            thumb: 'renders/bathroom_doors.png',
             markers: [
                 {
                     id: 'bathroom_doors-to-bathroom_shower',
@@ -135,15 +135,15 @@
         },
         {
             id: 'bathroom_shower',
-            src: 'renders/bath_new_366.png',
-            thumb: 'renders/bath_new_366.png',
+            src: 'renders/bathroom_shower.png',
+            thumb: 'renders/bathroom_shower.png',
             markers: [
                 {
                     id: 'bathroom_shower-to-bathroom_doors',
                     image: arrowIcon,
                     size: {width: mainIconSize, height: mainIconSize},
-                    yaw: 0.21,
-                    pitch: -0.35,
+                    yaw: 3.16,
+                    pitch: -0.51,
                     tooltip: 'Go to the doors',
                     data: {targetIndex: panoramaIndex.bathroom_doors}, // Moving action
                 },
@@ -152,8 +152,8 @@
                     id: 'bathroom_shower-shower',
                     image: handIcon,
                     size: { width: 32, height: 32 },
-                    yaw: 3.92,
-                    pitch: -0.72,
+                    yaw: 0.65,
+                    pitch: -0.56,
                     className: 'clickable-comment-marker',
                     data: { message: "There's no water." }
                 }
