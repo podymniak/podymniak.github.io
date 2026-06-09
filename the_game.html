@@ -71,7 +71,8 @@
         balcony: 4,
         hall_mid: 5,
         hall_exit: 6,
-        salon_doors: 7
+        salon_doors: 7,
+        salon_windows: 8
     }
 
     const panoramas = [
@@ -220,13 +221,13 @@
             thumb: 'renders/balcony.png',
             markers: [
                 {
-                    id: 'balcony-to-salon_doors',
+                    id: 'balcony-to-salon_windows',
                     image: arrowIcon,
                     size: {width: mainIconSize, height: mainIconSize},
                     yaw: 3.33,
                     pitch: -0.35,
                     tooltip: 'Go back',
-                    data: {targetIndex: panoramaIndex.salon_doors}, // Moving action
+                    data: {targetIndex: panoramaIndex.salon_windows}, // Moving action
                 },
 
                 {
@@ -361,6 +362,38 @@
                     size: {width: mainIconSize, height: mainIconSize},
                     yaw: 0.26,
                     pitch: -0.25,
+                    tooltip: 'Go to the balcony',
+                    data: {targetIndex: panoramaIndex.balcony}, // Moving action
+                },{
+                    id: 'salon_doors-to-salon_windows',
+                    image: arrowIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 0.69,
+                    pitch: -0.65,
+                    tooltip: 'Go to the window',
+                    data: {targetIndex: panoramaIndex.salon_windows}, // Moving action
+                }
+            ]
+        },
+        {
+            id: 'salon_windows',
+            src: 'renders/salon_windows.png',
+            thumb: 'renders/salon_windows.png',
+            markers: [
+                {
+                    id: 'salon_windows-to-salon_doors',
+                    image: arrowIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 3.82,
+                    pitch: -0.35,
+                    tooltip: 'Go to the doors',
+                    data: {targetIndex: panoramaIndex.salon_doors}, // Moving action
+                },{
+                    id: 'salon_windows-to-balcony',
+                    image: arrowIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 5.93,
+                    pitch: -0.26,
                     tooltip: 'Go to the balcony',
                     data: {targetIndex: panoramaIndex.balcony}, // Moving action
                 }
