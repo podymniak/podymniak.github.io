@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>♡ My Bathroom Tour ♡</title>
+    <link rel="shortcut icon" href="images/teaBreak.png">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/markers-plugin/index.min.css" />
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+
+        #viewer {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* Message Box styling */
+        #coords-log {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 12px;
+            border-radius: 5px;
+            font-family: monospace;
+            z-index: 100;
+            pointer-events: none;
+            max-width: 300px;
+            line-height: 1.4;
+            border: 1px solid #555;
+        }
+
+        /* Forces the mouse to change to the clicking hand when hovering over comment items */
+        .clickable-comment-marker {
+            cursor: pointer !important;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/three/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/markers-plugin/index.min.js"></script>
+</head>
+
+<body>
+
+<div id="viewer"></div>
+<div id="thumbnails"></div>
+<!--<div id="coords-log">Click an item to inspect it, or click the floor for coordinates!</div>-->
+
+<script>
+    const arrowIcon = "https://www.freeiconspng.com/uploads/arrow-icon-clip-art-file-down-arrow-icon-png-balin-icon-arrow-right--32.png";
+    const handIcon = "https://www.freeiconspng.com/uploads/helping-hand-icon-png-11.png";
+    const questionIcon = "https://www.freeiconspng.com/uploads/question-answer-icon-10.png1";
+    const thoughtIcon = "https://www.freeiconspng.com/uploads/bubble-cloud-thought-icon-2.png";
+
+    const mainIconSize = 64
+    const minerIconSize = 64
+
+    const panoramaIndex = {
+        kitchen_window: 0,
+        middle: 1,
+        salon_window: 2
+    }
+
+    const panoramas = [
+        {
+            id: 'kitchen_window',
+            src: 'renders/r1.png',
+            thumb: 'renders/r1.png',
+            markers: [
+                {
+                    id: 'kitchen_window-to-middle',
+                    image: arrowIcon,
+                    size: { width: mainIconSize, height: mainIconSize },
+                    yaw: 3.05,
+                    pitch: -0.52,
+                    tooltip: 'Idź tam',
+                    data: { targetIndex: panoramaIndex.middle } // Moving action
+                }
+            ]
+        },
+        {
+            id: 'middle',
+            src: 'renders/r2.png',
+            thumb: 'renders/r2.png',
+            markers: [
+                {
+                    id: 'middle-to-kitchen_window',
+                    image: arrowIcon,
+                    size: { width: mainIconSize, height: mainIconSize },
+                    yaw: 6.02,
+                    pitch: -0.28,
+                    tooltip: 'Idź tam',
+                    data: { targetIndex: panoramaIndex.kitchen_window } // Moving action
+                },
+                {
+                    id: 'middle-to-salon_window',
+                    image: arrowIcon,
+                    size: { width: mainIconSize, height: mainIconSize },
+                    yaw: 3.05,
+                    pitch: -0.52,
+                    tooltip: 'Idź tam',
+                    data: { targetIndex: panoramaIndex.salon_window } // Moving action
+                }
+            ]
+        },
+        {
+            id: 'salon_window',
+            src: 'renders/r3.png',
+            thumb: 'renders/r3.png',
+            markers: [
+                {
+                    id: 'salon_window-to-middle',
+                    image: arrowIcon,
+                    size: { width: mainIconSize, height: mainIconSize },
+                    yaw: 6.02,
+                    pitch: -0.48,
+                    tooltip: 'Idź tam',
+                    data: { targetIndex: panoramaIndex.middle } // Moving action
+                }
+            ]
+        },
+    ];
+
+    // let current = panoramaIndex.balcony;
+    let current = 0;
+
+    // Initialize Viewer
+    const viewer = new PhotoSphereViewer.Viewer({
+        container: 'viewer',
+        panorama: panoramas[current].src,
+        mousemove: true,
+        mousewheel: true,
+        navbar: false,
+        defaultZoomLvl: 0,
+        plugins: [
+            [PhotoSphereViewer.MarkersPlugin, {}]
+        ]
+    });
+
+    const markersPlugin = viewer.getPlugin(PhotoSphereViewer.MarkersPlugin);
+
+    viewer.addEventListener('ready', () => {
+        markersPlugin.setMarkers(panoramas[current].markers);
+    }, { once: true });
+
+    // Handle marker clicks dynamically
+    markersPlugin.addEventListener('select-marker', ({ marker }) => {
+        // const logBox = document.getElementById('coords-log');
+
+        if (!marker.data) return;
+
+        // Door / navigation marker
+        if (marker.data.targetIndex !== undefined) {
+            loadPanorama(marker.data.targetIndex);
+            return;
+        }
+
+        // Comment marker with multiple messages
+        if (marker.data.messages) {
+
+            if (marker.data.currentMessage === undefined) {
+                marker.data.currentMessage = 0;
+            }
+
+            const index = marker.data.currentMessage;
+
+            logBox.innerHTML = `💬 ${marker.data.messages[index]}`;
+
+            marker.data.currentMessage =
+                (index + 1) % marker.data.messages.length;
+        }
+
+        // Backward compatibility with old markers
+        else if (marker.data.message) {
+            logBox.innerHTML = `💬 ${marker.data.message}`;
+        }
+    });
+
+    // Helper Tool: regular background click yields coordinates
+    viewer.addEventListener('click', ({ data }) => {
+        if (!data.yaw) return;
+        const logBox = document.getElementById('coords-log');
+        logBox.innerHTML = `yaw: ${data.yaw.toFixed(2)}, pitch: ${data.pitch.toFixed(2)}`;
+    });
+
+    const thumbnailsContainer = document.getElementById('thumbnails');
+
+    function loadPanorama(index) {
+        current = index;
+
+        viewer.setPanorama(panoramas[index].src).then(() => {
+            markersPlugin.setMarkers(panoramas[index].markers || []);
+
+            // Reset message text when moving to a new room
+            // document.getElementById('coords-log').innerHTML = "Click an item to inspect it, or click the floor for coordinates!";
+        });
+
+        updateActiveThumb();
+    }
+
+    function updateActiveThumb() {
+        document.querySelectorAll('.thumb').forEach((img, i) => {
+            img.classList.toggle('active', i === current);
+        });
+    }
+
+    panoramas.forEach((pano, index) => {
+        const img = document.createElement('img');
+        img.src = pano.thumb;
+        img.className = 'thumb';
+        img.onclick = () => loadPanorama(index);
+        thumbnailsContainer.appendChild(img);
+    });
+
+    updateActiveThumb();
+</script>
+
+</body>
+</html>
