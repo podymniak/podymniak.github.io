@@ -78,8 +78,8 @@
     const panoramas = [
         {
             id: 'bathroom_doors',
-            src: 'renders/bathroom_doors.png',
-            thumb: 'renders/bathroom_doors.png',
+            src: 'renders_the_game/bathroom_doors.png',
+            thumb: 'renders_the_game/bathroom_doors.png',
             markers: [
                 {
                     id: 'bathroom_doors-to-bathroom_shower',
@@ -120,8 +120,8 @@
                     id: 'bathroom_doors-pawlacz',
                     image: handIcon,
                     size: { width: minerIconSize, height: minerIconSize },
-                    yaw: 4.99,
-                    pitch: 0.90,
+                    yaw: 4.17,
+                    pitch: 1.22,
                     className: 'clickable-comment-marker',
                     data: { messages: ["Cleaning supplies.","Nothing interesting inside."] }
                 },{
@@ -129,7 +129,7 @@
                     image: handIcon,
                     size: { width: minerIconSize, height: minerIconSize },
                     yaw: 0.63,
-                    pitch: -0.26,
+                    pitch: -0.04,
                     className: 'clickable-comment-marker',
                     data: { messages: ["Toiletries.","Nothing interesting inside."] }
                 }
@@ -137,8 +137,8 @@
         },
         {
             id: 'bathroom_shower',
-            src: 'renders/bathroom_shower.png',
-            thumb: 'renders/bathroom_shower.png',
+            src: 'renders_the_game/bathroom_shower.png',
+            thumb: 'renders_the_game/bathroom_shower.png',
             markers: [
                 {
                     id: 'bathroom_shower-to-bathroom_doors',
@@ -154,8 +154,8 @@
                     id: 'bathroom_shower-shower',
                     image: handIcon,
                     size: { width: minerIconSize, height: minerIconSize },
-                    yaw: 0.65,
-                    pitch: -0.56,
+                    yaw: 0.52,
+                    pitch: -0.57,
                     className: 'clickable-comment-marker',
                     data: { messages: ["There's no water.", "They still haven't finished."] }
                 }
@@ -163,24 +163,83 @@
         },
         {
             id: 'kitchen_window',
-            src: 'renders/kitchen_window.png',
-            thumb: 'renders/kitchen_window.png',
+            src: 'renders_the_game/kitchen_window.png',
+            thumb: 'renders_the_game/kitchen_window.png',
             markers: [
                 {
                     id: 'kitchen_window-to-kitchen_doors',
                     image: arrowIcon,
                     size: {width: mainIconSize, height: mainIconSize},
-                    yaw: 2.33,
-                    pitch: -0.35,
+                    yaw: 2.69,
+                    pitch: -0.79,
                     tooltip: 'Go to the doors',
                     data: {targetIndex: panoramaIndex.kitchen_doors}, // Moving action
-                }
+                },
+                {
+                    id: 'kitchen_window-to-hall_mid',
+                    image: arrowIcon,
+                    size: {width: mainIconSize, height: mainIconSize},
+                    yaw: 2.33,
+                    pitch: -0.35,
+                    tooltip: 'Go to the hall',
+                    data: {targetIndex: panoramaIndex.hall_mid}, // Moving action
+                },
+
+                {
+                    id: 'kitchen_window-meds',
+                    image: handIcon,
+                    size: { width: minerIconSize, height: minerIconSize },
+                    yaw: 1.02,
+                    pitch: -0.85,
+                    className: 'clickable-comment-marker',
+                    data: { messages:
+                            [
+                                "Medicine."
+                            ] }
+                },
+                {
+                    id: 'kitchen_window-trash',
+                    image: handIcon,
+                    size: { width: minerIconSize, height: minerIconSize },
+                    yaw: 0.07,
+                    pitch: -0.92,
+                    className: 'clickable-comment-marker',
+                    data: { messages:
+                            [
+                                "Trash."
+                            ] }
+                },
+                {
+                    id: 'kitchen_window-cutlery',
+                    image: handIcon,
+                    size: { width: minerIconSize, height: minerIconSize },
+                    yaw: 1.47,
+                    pitch: -0.60,
+                    className: 'clickable-comment-marker',
+                    data: { messages:
+                            [
+                                "Cutlery."
+                            ] }
+                },
+                {
+                    id: 'kitchen_window-fog',
+                    image: thoughtIcon,
+                    size: { width: minerIconSize, height: minerIconSize },
+                    yaw: 5.10,
+                    pitch: -0.18,
+                    className: 'clickable-comment-marker',
+                    data: { messages:
+                            [
+                                "The fog is very thick today.",
+                                "It makes me feel claustrophobic."
+                            ] }
+                },
             ]
         },
         {
             id: 'kitchen_doors',
-            src: 'renders/kitchen_doors.png',
-            thumb: 'renders/kitchen_doors.png',
+            src: 'renders_the_game/kitchen_doors.png',
+            thumb: 'renders_the_game/kitchen_doors.png',
             markers: [
                 {
                     id: 'kitchen_doors-to-kitchen_window',
@@ -217,8 +276,8 @@
         },
         {
             id: 'balcony',
-            src: 'renders/balcony.png',
-            thumb: 'renders/balcony.png',
+            src: 'renders_the_game/balcony.png',
+            thumb: 'renders_the_game/balcony.png',
             markers: [
                 {
                     id: 'balcony-to-salon_windows',
@@ -263,8 +322,8 @@
         },
         {
             id: 'hall_mid',
-            src: 'renders/hall_mid.png',
-            thumb: 'renders/hall_mid.png',
+            src: 'renders_the_game/hall_mid.png',
+            thumb: 'renders_the_game/hall_mid.png',
             markers: [
                 {
                     id: 'hall_mid-to-bathroom_doors',
@@ -303,8 +362,8 @@
         },
         {
             id: 'hall_exit',
-            src: 'renders/hall_exit.png',
-            thumb: 'renders/hall_exit.png',
+            src: 'renders_the_game/hall_exit.png',
+            thumb: 'renders_the_game/hall_exit.png',
             markers: [
                 {
                     id: 'hall_exit-to-bathroom_doors',
@@ -345,8 +404,8 @@
         },
         {
             id: 'salon_doors',
-            src: 'renders/salon_doors.png',
-            thumb: 'renders/salon_doors.png',
+            src: 'renders_the_game/salon_doors.png',
+            thumb: 'renders_the_game/salon_doors.png',
             markers: [
                 {
                     id: 'salon_doors-to-hall_mid',
@@ -377,8 +436,8 @@
         },
         {
             id: 'salon_windows',
-            src: 'renders/salon_windows.png',
-            thumb: 'renders/salon_windows.png',
+            src: 'renders_the_game/salon_windows.png',
+            thumb: 'renders_the_game/salon_windows.png',
             markers: [
                 {
                     id: 'salon_windows-to-salon_doors',
@@ -402,7 +461,7 @@
     ];
 
     // let current = panoramaIndex.balcony;
-    let current = 0;
+    let current = 2;
 
     // Initialize Viewer
     const viewer = new PhotoSphereViewer.Viewer({
@@ -411,11 +470,82 @@
         mousemove: true,
         mousewheel: true,
         navbar: false,
-        defaultZoomLvl: 0,
+        defaultZoomLvl: 20,
         plugins: [
             [PhotoSphereViewer.MarkersPlugin, {}]
         ]
     });
+    //
+    // // THIS IS TO MOVE WITHOUT DRAG
+    //
+    // const container = document.getElementById('viewer');
+    //
+    // const viewer = new PhotoSphereViewer.Viewer({
+    //     container: container,
+    //     defaultZoomLvl: 5,
+    //     // fisheye: true,
+    //     panorama: panoramas[current].src,
+    //     mousemove: false,  // Disable default click-and-drag behavior
+    //     mousewheel: true,
+    //
+    //     navbar: false,
+    //     plugins: [
+    //         [PhotoSphereViewer.MarkersPlugin, {}]
+    //     ]
+    // });
+    //
+    // let mouseX = 0;
+    // let mouseY = 0;
+    // let isHovering = false;
+    //
+    // // Track mouse cursor relative to viewer center (-1 to 1 scale)
+    // container.addEventListener('mousemove', (e) => {
+    //     const rect = container.getBoundingClientRect();
+    //     const x = e.clientX - rect.left;
+    //     const y = e.clientY - rect.top;
+    //
+    //     // Convert pixel position to normalized coordinates from -1 (left/top) to 1 (right/bottom)
+    //     mouseX = (x / rect.width) * 2 - 1;
+    //     mouseY = (y / rect.height) * 2 - 1;
+    //     isHovering = true;
+    // });
+    //
+    // container.addEventListener('mouseleave', () => {
+    //     isHovering = false;
+    // });
+    //
+    // // Smooth animation loop to pan the camera
+    // function animate() {
+    //     requestAnimationFrame(animate);
+    //
+    //     if (isHovering) {
+    //         // Deadzone threshold (0.15) keeps camera stable near the center
+    //         const deadzone = 0.5;
+    //         const iAmSpeed = 0.03;
+    //
+    //         let speedX = 0;
+    //         let speedY = 0;
+    //
+    //         if (Math.abs(mouseX) > deadzone) {
+    //             speedX = (mouseX - Math.sign(mouseX) * deadzone) * iAmSpeed;
+    //         }
+    //         if (Math.abs(mouseY) > deadzone) {
+    //             speedY = -(mouseY - Math.sign(mouseY) * deadzone) * iAmSpeed;
+    //         }
+    //
+    //         if (speedX !== 0 || speedY !== 0) {
+    //             const position = viewer.getPosition();
+    //             viewer.rotate({
+    //                 yaw: position.yaw + speedX,
+    //                 pitch: position.pitch + speedY
+    //             });
+    //         }
+    //     }
+    // }
+    //
+    // animate();
+    //
+    // ///////////////////////////////////////////
 
     const markersPlugin = viewer.getPlugin(PhotoSphereViewer.MarkersPlugin);
 
