@@ -461,14 +461,16 @@
     ];
 
     // let current = panoramaIndex.balcony;
-    let current = 2;
+    // let current = 2;
+    let current = 0;
 
     // Initialize Viewer
     const viewer = new PhotoSphereViewer.Viewer({
         container: 'viewer',
         panorama: panoramas[current].src,
         mousemove: true,
-        mousewheel: true,
+        mousewheel: false,
+        // mousewheel: true,
         navbar: false,
         defaultZoomLvl: 20,
         plugins: [
